@@ -12,7 +12,8 @@ ApplicationWindow {
             text: qsTr("Hello New World")
         }
         Button{
-            text : "Change Text"           
+            text : "Change Text"
+            onClicked: messageClass.doMessageChange()
         }
     }
 }
