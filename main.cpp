@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
     auto root_objet = engine.rootObjects().first();
     DataType my_data;
     my_data.logVariantList(root_objet);
+    my_data.logVariantMap(root_objet);
+
 
 
     return app.exec();

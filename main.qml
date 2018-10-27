@@ -8,17 +8,24 @@ ApplicationWindow {
     title: qsTr("Hello Integration World")
 
 
-//    Connections{
-//        target: messageClass
-//        onMessageChanged: textId.text = value;
-//    }
+    //    Connections{
+    //        target: messageClass
+    //        onMessageChanged: textId.text = value;
+    //    }
 
     function logger(element){
         print("List element:" + element);
     }
 
     function logList(anList){
-       anList.forEach(logger);
+        anList.forEach(logger);
+    }
+
+    function logMap(theMap)
+    {
+        for(var element in theMap){
+            print("Object item Map:", element, "=", theMap[element]);
+        }
     }
 
     Column{
