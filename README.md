@@ -91,3 +91,62 @@ void Message::doMessageChange()
         onMessageChanged: textId.text = value;
     }
 ```
+
+### Utilizando Q_PROPERTY
+
+Esta macro é usada para declarar propriedades em classes que herdam o QObject.As propriedades se comportam como membros de dados de classe, mas possuem recursos adicionais acessíveis por meio do Meta-Object System.
+
+#### Implementação
+
+- Para utilizar o @Q_PROPERTY coloque na classe Message a definição do property.
+
+```c++
+Q_PROPERTY(QString message READ message WRITE setMessage NOTIFY messageChanged)
+```
+
+- Defina os metodos get e set com definido no property
+
+```c++
+    QString message() const;
+    void setMessage(const QString &message);
+```
+
+- Agora que temos uma propriedade definida não preciraremos mais ter o paramento no método messageChanged.
+
+```c++
+ void messageChanged();
+```
+
+- Vamos modificar a implementação do arquivo .cpp para a classe Message. Colocaremos o metodo get e set e iremos refatorar os sinal messageChanged()
+
+```c++
+void Message::doMessageChange()
+{
+    setMessage("How many clicks %1");
+//    m_counter++;
+//    emit messageChanged(m_message.arg(m_counter));
+}
+
+void Message::setMessage(QString value)
+{
+    m_message = value.arg(++m_counter);
+    emit messageChanged();
+}
+```
+
+- Como temos a propriedade definida e configurada não precisaremos da definicao do Connection dentro do qml. Modificaremos o QML para que o texto seja atualizado pelo property.
+
+```qml
+ //    Connections{
+//        target: messageClass
+//        onMessageChanged: textId.text = value;
+//    }
+
+    Column{
+        Text {
+            id: textId
+            //text: qsTr("Hello New World")
+            text: messageClass.message
+        }
+```
+
