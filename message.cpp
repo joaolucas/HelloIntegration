@@ -1,4 +1,5 @@
 #include "message.h"
+#include <QDebug>
 
 Message::Message(QObject *parent) : QObject(parent),
     m_counter(0),
@@ -22,6 +23,14 @@ QString Message::message() const
 
 void Message::setMessage(QString value)
 {
-    m_message = value.arg(m_counter);
+    m_message = value.arg(++m_counter);
     emit messageChanged();
 }
+
+
+int Message::sendMessageFromCpp(const QString value)
+{
+    qDebug() << "This is C++ speaking. I heard QML say:" << value;
+    return m_counter;
+}
+

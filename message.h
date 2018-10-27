@@ -13,6 +13,9 @@ public:
     QString message() const;
     void setMessage(QString value);
 
+    Q_INVOKABLE int sendMessageFromCpp(const QString value);
+
+
 public slots:
     void doMessageChange();
 

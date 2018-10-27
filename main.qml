@@ -23,5 +23,12 @@ ApplicationWindow {
             text : "Change Text"
             onClicked: messageClass.doMessageChange()
         }
+        Button{
+            text : "Two way"
+            onClicked: {
+                var result = messageClass.sendMessageFromCpp("Lucas");
+                print ("The Cpp file tell me: "+ result)
+            }
+        }
     }
 }
