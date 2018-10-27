@@ -27,7 +27,9 @@ android-no-sdk {
 export(INSTALLS)
 
 HEADERS += \
-    $$PWD/message.h
+    $$PWD/message.h \
+    $$PWD/datatype.h
 
 SOURCES += \
-    $$PWD/message.cpp
+    $$PWD/message.cpp \
+    $$PWD/datatype.cpp
