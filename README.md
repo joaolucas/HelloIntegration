@@ -150,3 +150,32 @@ void Message::setMessage(QString value)
         }
 ```
 
+### Utilizando Q_INVOKABLE (Two way comunication)
+Aplique essa macro às declarações de funções-membro para permitir que elas sejam invocadas por meio do sistema de two way comunication.
+
+#### Implementação
+
+- Para iniciar definiremos um método sendMessageFromCpp na class Message utilizando a declaração Q_INVOKABLE
+
+```c++
+Q_INVOKABLE int sendMessageFromCpp(const QString value);
+```
+- Agora faremos um implementação do metodo no arquivo cpp que receberá um valor do qml e retornará um valor que o qml.
+```c++
+int Message::sendMessageFromCpp(const QString value)
+{
+    qDebug() << "This is C++ speaking. I heard  QML say: " <<value;
+    return m_counter;
+}
+```
+
+- Para nosso exemplo criaremos um outro botão na tela do qml chamando o metodo sendMessageFromCpp e implementando alguma lógica com o retorno. 
+```qml
+ Button{
+            text : "Two way"
+            onClicked:{
+                var result = messageClass.sendMessageFromCpp("lucas")
+                print("QML Received " + result);
+            }
+        }
+```
