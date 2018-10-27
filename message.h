@@ -13,8 +13,11 @@ public slots:
     void doMessageChange();
 
 signals:
+    void messageChanged(QString value);
 
-public slots:
+private:
+    int m_counter;
+    QString m_message;
 };
 
 #endif // MESSAGE_H
