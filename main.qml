@@ -7,8 +7,15 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello Integration World")
 
+
+    Connections{
+        target: messageClass
+        onMessageChanged: textId.text = value;
+    }
+
     Column{
-        Text {         
+        Text {
+            id: textId
             text: qsTr("Hello New World")
         }
         Button{
