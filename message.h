@@ -6,14 +6,18 @@
 class Message : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString message READ message WRITE setMessage NOTIFY messageChanged)
 public:
     explicit Message(QObject *parent = nullptr);
+
+    QString message() const;
+    void setMessage(QString value);
 
 public slots:
     void doMessageChange();
 
 signals:
-    void messageChanged(QString value);
+    void messageChanged();
 
 private:
     int m_counter;

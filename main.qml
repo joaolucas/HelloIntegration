@@ -8,15 +8,16 @@ ApplicationWindow {
     title: qsTr("Hello Integration World")
 
 
-    Connections{
-        target: messageClass
-        onMessageChanged: textId.text = value;
-    }
+//    Connections{
+//        target: messageClass
+//        onMessageChanged: textId.text = value;
+//    }
 
     Column{
         Text {
             id: textId
-            text: qsTr("Hello New World")
+            //text: qsTr("Hello New World")
+            text: messageClass.message
         }
         Button{
             text : "Change Text"
