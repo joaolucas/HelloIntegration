@@ -179,3 +179,59 @@ int Message::sendMessageFromCpp(const QString value)
             }
         }
 ```
+
+### QVariantList e  QVariantMap
+
+Nessa exemplo iremos trabalha com duas estutura de lista para o qt. Porém temos que entender o QVariant.
+A classe QVariant atua como uma união para os tipos de dados mais comuns do Qt.
+O QVariant possui uma interface rica para conversão de dados e verificação de validade.
+
+
+#### Implementação
+
+- Para nosso exemplo criaremos um comunicação (two way) porém utilizando javaScript no código qml. Assim fica mais legal :)
+- Primeiro definiremos dos método de log para QVariantList e QVariantMap em uma nova classe chamada DataType
+
+```c++
+public:
+    explicit DataType(QObject *parent = 0);
+    void logVariantList(QObject* root);
+    void logVariantMap(QObject* root);
+```
+
+- Agora implementaremos nosso primeiro método QVariantList
+
+```c++
+void DataType::logVariantList(QObject *root)
+{
+    QColor color = Qt::green;
+    QVariantList my_list;
+    my_list << 3.1415 << 30 << color << "lucas";
+    QMetaObject::invokeMethod(root, "logArray",
+                              Q_ARG(QVariant,
+                                    QVariant::fromValue(my_list)));
+}
+```
+
+- Para que nosso exemplo funcione corretamento não podemos utlizar javasscript com interação do context. Iremos criar um root objet na nossa class main e passa como paramento para o método logVariant list do nosso datatype.
+```c++
+ auto root_object = engine.rootObjects().first();
+
+    DataTypes my_dts;
+    my_dts.logVariantList(root_object);
+```
+
+- Criaremos duas funções javaScript no nosso arquivo qml para executar a lógica na view. 
+```javascript
+  function logger(element)
+    {
+        print("Array element:" + element)
+    }
+    
+    function logArray(anArray)
+    {
+        anArray.forEach(logger);
+    }
+    ```
+    **Lembrando que o nome da função javascrit deve ser igual à definida na invocação de método.
+
