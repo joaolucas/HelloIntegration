@@ -23,7 +23,7 @@ QString Message::message() const
 
 void Message::setMessage(QString value)
 {
-    m_message = value.arg(m_counter);
+    m_message = value.arg(++m_counter);
     emit messageChanged();
 }
 
